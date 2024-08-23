@@ -1,175 +1,122 @@
 # CRM Backend API
 
-## Overview
+This repository contains the backend API for a Customer Relationship Management (CRM) system. The API provides endpoints for managing authentication, customers, and orders.
 
-This project is a backend API for a Customer Relationship Management (CRM) system. It is designed to handle authentication, customer management, and order processing. The API is structured to support various CRUD operations for customers, orders, and user authentication.
+## Table of Contents
+- [Getting Started](#getting-started)
+- [API Documentation](#api-documentation)
+  - [Authentication](#authentication)
+  - [Customers](#customers)
+  - [Orders](#orders)
+- [Environment Variables](#environment-variables)
+- [Running the Project](#running-the-project)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Prerequisites
+## Getting Started
 
-Before you begin, ensure you have met the following requirements:
-
-- Node.js and npm installed on your local machine.
-- A running MongoDB instance for database management.
-- Postman for testing the API endpoints.
-
-## Installation
+To get started with the CRM backend API, follow these steps:
 
 1. **Clone the repository:**
-
    ```bash
-   git clone <repository-url>
-   cd crm-backend
+   git clone https://github.com/yourusername/crm-backend.git
    ```
-
 2. **Install dependencies:**
-
    ```bash
    npm install
    ```
+3. **Set up environment variables:**  
+   Create a `.env` file in the root directory and configure the necessary environment variables (see [Environment Variables](#environment-variables)).
 
-3. **Set up environment variables:**
-
-   Create a `.env` file in the root directory and add the following:
-
-   ```bash
-   PORT=3000
-   MONGO_URI=<your_mongo_db_connection_string>
-   JWT_SECRET=<your_jwt_secret>
-   ```
-
-4. **Start the server:**
-
+4. **Run the development server:**
    ```bash
    npm start
    ```
 
-   The server will run on `http://localhost:3000`.
-
-## API Endpoints
+## API Documentation
 
 ### Authentication
 
-- **Login**
+The authentication endpoints allow users to register, log in, and log out of the system.
 
-  - **URL:** `/api/auth/login`
-  - **Method:** POST
-  - **Body:**
-    ```json
-    {
-      "email": "root2",
-      "password": "pass2"
-    }
-    ```
+- **Login**: `POST /api/auth/login`
+  - Request body: `{ "email": "string", "password": "string" }`
+  - Response: User details and authentication token.
 
-- **Logout**
+- **Register**: `POST /api/auth/register`
+  - Request body: `{ "name": "string", "email": "string", "password": "string", "role": "string" }`
+  - Response: Newly registered user details.
 
-  - **URL:** `/api/auth/logout`
-  - **Method:** POST
-  - **Body:**
-    ```json
-    {
-      "email": "root2",
-      "password": "pass2"
-    }
-    ```
-
-- **Register**
-
-  - **URL:** `/api/auth/register`
-  - **Method:** POST
-  - **Body:**
-    ```json
-    {
-      "name": "root2",
-      "email": "root2",
-      "password": "pass2",
-      "role": "admin"
-    }
-    ```
+- **Logout**: `POST /api/auth/logout`
+  - Request body: `{ "email": "string", "password": "string" }`
+  - Response: Logout confirmation.
 
 ### Customers
 
-- **Get All Customers**
+Endpoints to manage customers' information.
 
-  - **URL:** `/api/customers`
-  - **Method:** GET
+- **Get All Customers**: `GET /api/customers`
+  - Response: List of all customers.
 
-- **Get One Customer**
+- **Get One Customer**: `GET /api/customers/{customerId}`
+  - Response: Details of a specific customer.
 
-  - **URL:** `/api/customers/{customer_id}`
-  - **Method:** GET
+- **Create Customer**: `POST /api/customers`
+  - Request body: Customer details in JSON format.
+  - Response: Created customer details.
 
-- **Create Customer**
+- **Update Customer**: `PATCH /api/customers/{customerId}`
+  - Request body: Updated customer details in JSON format.
+  - Response: Updated customer details.
 
-  - **URL:** `/api/customers`
-  - **Method:** POST
-  - **Body:**
-    ```json
-    {
-      "name": "John Doe",
-      "email": "john.doe@example.com",
-      "phone": "+1234567890",
-      "address": "123 Main St, Anytown, USA"
-    }
-    ```
-
-- **Update Customer**
-
-  - **URL:** `/api/customers/{customer_id}`
-  - **Method:** PATCH
-  - **Body:**
-    ```json
-    {
-      "name": "John Doe",
-      "email": "john.doe@example.com",
-      "phone": "+1234567890",
-      "address": "123 Main St, Anytown, USA"
-    }
-    ```
-
-- **Delete Customer**
-
-  - **URL:** `/api/customers/{customer_id}`
-  - **Method:** DELETE
+- **Delete Customer**: `DELETE /api/customers/{customerId}`
+  - Response: Deletion confirmation.
 
 ### Orders
 
-- **Get All Orders**
+Endpoints to manage customer orders.
 
-  - **URL:** `/api/orders`
-  - **Method:** GET
+- **Get All Orders**: `GET /api/orders`
+  - Response: List of all orders.
 
-- **Get One Order**
+- **Get One Order**: `GET /api/orders/{orderId}`
+  - Response: Details of a specific order.
 
-  - **URL:** `/api/orders/{order_id}`
-  - **Method:** GET
+- **Create Order**: `POST /api/orders`
+  - Request body: Order details in JSON format.
+  - Response: Created order details.
 
-- **Create Order**
+- **Update Order**: `PATCH /api/orders/{orderId}`
+  - Request body: Updated order details in JSON format.
+  - Response: Updated order details.
 
-  - **URL:** `/api/orders`
-  - **Method:** POST
-  - **Body:**
-    ```json
-    {
-      "customerId": "66a5204421b6b19146286656",
-      "orderDate": "2024-07-27T12:34:56.789Z",
-      "items": [
-        {
-          "product": "Laptop",
-          "quantity": 1,
-          "price": 1000
-        },
-        {
-          "product": "Mouse",
-          "quantity": 2,
-          "price": 25
-        }
-      ],
-      "status": "Pending"
-    }
-    ```
+- **Delete Order**: `DELETE /api/orders/{orderId}`
+  - Response: Deletion confirmation.
 
-- **Update Order**
+## Environment Variables
 
-  - **URL:** `/api/orders/{order_id}`
- 
+Ensure you have the following environment variables set up in your `.env` file:
+
+- `DATABASE_URL` - URL for your database connection.
+- `JWT_SECRET` - Secret key for JWT authentication.
+- `PORT` - The port on which the server runs (default: 3000).
+
+## Running the Project
+
+To run the project locally:
+
+1. Make sure all dependencies are installed by running `npm install`.
+2. Start the development server with `npm start`.
+3. The API will be accessible at `http://localhost:3000`.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository, make your changes, and submit a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+This README provides a clear and concise overview of the project and how to get started with it. Adjustments can be made depending on additional specifics of the project.
