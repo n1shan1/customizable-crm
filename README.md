@@ -116,7 +116,3 @@ Contributions are welcome! Please fork the repository, make your changes, and su
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-This README provides a clear and concise overview of the project and how to get started with it. Adjustments can be made depending on additional specifics of the project.
